@@ -1,0 +1,6 @@
+iris
+newiris <- iris
+newiris$Species <-NULL
+(kc <- kmeans(newiris,3))
+
+table(iris$species,kc$cluster)
