@@ -1,0 +1,37 @@
+# Load necessary dataset library(datasets)
+ir_data <- iris
+# View first few rows of the dataset head(ir_data)
+# Structure of the dataset
+str(ir_data)
+# Check levels of species column
+levels(ir_data$Species)
+# Check for missing values
+sum(is.na(ir_data))
+# Select first 100 rows
+ir_data <- ir_data[1:100,]
+# Set seed for reproducibility set.seed(100)
+# Randomly sample 80 indices from 1 to 100 samp
+<- sample(1:100, 80) 
+# Create training (test) and control datasets ir_test
+<- ir_data[samp,]
+ir_ctrl <- ir_data[-samp,]
+# Install and load ggplot2 package
+install.packages("ggplot2") library(ggplot2)
+# Install and load GGally package
+install.packages("GGally") library(GGally)
+# Create pair plot of test dataset ggpairs(ir_test)
+# Define dependent and independent variables
+y <- ir_test$Species
+x <- ir_test$Sepal.Length
+# Fit logistic regression model
+glfit <- glm(y ~ x, family = 'binomial')
+# Display model summary summary(glfit)
+# Create new data frame for prediction
+newdata <- data.frame(x = ir_ctrl$Sepal.Length)
+# Predict values using logistic regression model
+predicted_val <- predict(glfit, newdata, type = "response")
+# Create a data frame with actual and predicted values
+prediction <- data.frame(ir_ctrl$Sepal.Length, ir_ctrl$Species, predicted_val)
+# Visualize the predictions
+qplot(prediction[,1], round(prediction[,3]), col = prediction[,2],
+xlab = 'Sepal Length', ylab = 'Prediction using Logistic Regression')
