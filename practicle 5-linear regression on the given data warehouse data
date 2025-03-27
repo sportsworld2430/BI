@@ -1,0 +1,2 @@
+plot(newiris[c("Sepal.Length","Sepal.Width")],col=kc$cluster
+) 
