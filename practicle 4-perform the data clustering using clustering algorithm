@@ -4,3 +4,4 @@ newiris$Species <-NULL
 (kc <- kmeans(newiris,3))
 
 table(iris$species,kc$cluster)
+plot(newiris[c("Sepal.Length","Sepal.Width")],col=kc$cluster) 
